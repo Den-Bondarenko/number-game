@@ -1,7 +1,33 @@
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Alert } from "react-native";
+import { useState } from "react";
 import MainButton from "../components/MainButton";
 
-export default GameStartScreen = () => {
+export default GameStartScreen = ({onPickedNumber}) => {
+
+    const [enteredNumber, setEnteredNumber] = useState('');
+
+    const numberInputHandler = (number) => setEnteredNumber(number);
+
+    const resetNumberHandler = () => setEnteredNumber('');
+
+    console.log(enteredNumber);
+
+    const confirmNumberHandler = () => {
+        const chosenNumber = parseInt(enteredNumber);
+
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                'Invalid number!', 
+                'Number has to be a number between 1 and 99.',
+                [{text: 'Ok', style: 'destructive', pressHandler: resetNumberHandler}]
+            );
+            return;
+        }
+
+        onPickedNumber(enteredNumber);
+    };
+
+
     return (
         <View style = {styles.inputContainer}>
             <TextInput 
@@ -10,10 +36,16 @@ export default GameStartScreen = () => {
                 keyboardType = "number-pad"
                 autoCapitalize = "none"
                 autoCorrect = {false}
+                onChangeText = {numberInputHandler}
+                value = {enteredNumber}
             />
-            <View>
-                <MainButton>Reset</MainButton>
-                <MainButton>Confirm</MainButton>
+            <View style = {styles.buttonsContainer}>
+                <View style = {styles.buttonCintainer}>
+                    <MainButton pressHandler = {resetNumberHandler}>Reset</MainButton>
+                </View>
+                <View style = {styles.buttonCintainer}>
+                    <MainButton pressHandler = {confirmNumberHandler}>Confirm</MainButton>
+                </View>
             </View>
         </View>
     );
@@ -21,6 +53,7 @@ export default GameStartScreen = () => {
 
 const styles = StyleSheet.create({
     inputContainer: {
+        alignItems: 'center',
         marginHorizontal: 25,
         padding: 16,
         marginTop: 100,
@@ -32,6 +65,7 @@ const styles = StyleSheet.create({
         shadowRadius: 9,
         shadowOpacity: 0.25,
     },
+
     numberInput: {
         height: 50,
         width: 50,
@@ -42,5 +76,15 @@ const styles = StyleSheet.create({
         color: '#4e326e',
         marginVertical: 8,
         textAlign: 'center',
+    },
+
+    buttonsContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+
+    buttonCintainer: {
+        flex: 1,
     }
 });
