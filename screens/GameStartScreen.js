@@ -1,6 +1,6 @@
 import { View, TextInput, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
-import MainButton from "../components/MainButton";
+import MainButton from "../components/ui/MainButton";
 
 export default GameStartScreen = ({onPickedNumber}) => {
 
