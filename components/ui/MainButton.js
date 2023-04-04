@@ -17,10 +17,10 @@ export default MainButton = (props) => {
 
 const styles = StyleSheet.create({
     buttonOuterContainer: {
-        marginHorizontal: 5,
         borderRadius: 20,
         overflow: 'hidden',
         elevation: 2,
+        margin: 3,
     },
 
     buttonInnerContainer: {

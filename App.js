@@ -1,17 +1,27 @@
 import { StyleSheet, View, SafeAreaView} from 'react-native';
-import { useState } from 'react';
+import { useState} from 'react';
 import GameStartScreen from './screens/GameStartScreen';
 import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
 
 export default function App() {
 
   const [pickedNumber, setPickedNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState(true);
+ 
+  const pickedNumberHandler = (confirmedNumber) => {
+    setPickedNumber(confirmedNumber);
+    setGameIsOver(false);
+  };
 
-  const pickedNumberHandler = (confirmedNumber) => setPickedNumber(confirmedNumber);
+  function gameOverHandler() {
+    setGameIsOver(true);
+  };
 
   let activeScreen = <GameStartScreen onPickedNumber = {pickedNumberHandler}/>
 
-  if(pickedNumber) activeScreen = <GameScreen />;
+  if(pickedNumber) activeScreen = <GameScreen userNumber = {pickedNumber} onGameOver = {gameOverHandler}/>;
+  if(gameIsOver && pickedNumber) activeScreen = <GameOverScreen />
 
   return (
     <View style = {styles.rootScreen}>
