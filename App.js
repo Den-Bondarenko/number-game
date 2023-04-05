@@ -8,6 +8,7 @@ export default function App() {
 
   const [pickedNumber, setPickedNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0);
  
   const pickedNumberHandler = (confirmedNumber) => {
     setPickedNumber(confirmedNumber);
@@ -18,10 +19,21 @@ export default function App() {
     setGameIsOver(true);
   };
 
+  function startNewGameHandler() {
+    setPickedNumber(null);
+    setGuessRounds(0);
+  };
+
   let activeScreen = <GameStartScreen onPickedNumber = {pickedNumberHandler}/>
 
   if(pickedNumber) activeScreen = <GameScreen userNumber = {pickedNumber} onGameOver = {gameOverHandler}/>;
-  if(gameIsOver && pickedNumber) activeScreen = <GameOverScreen />
+  if(gameIsOver && pickedNumber) {
+    activeScreen = <GameOverScreen 
+      userNumber={pickedNumber} 
+      roundsNum={guessRounds} 
+      onStartNewGame={startNewGameHandler}
+    />
+  };
 
   return (
     <View style = {styles.rootScreen}>

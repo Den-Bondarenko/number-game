@@ -5,6 +5,7 @@ import NumberContainer from "../components/game/NumberContainer";
 import MainButton from "../components/ui/MainButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -33,6 +34,11 @@ function GameScreen({ userNumber, onGameOver})  {
             onGameOver();
         }
     }, [currentGuess]);
+
+    useEffect(() => {
+        minBoundary = 1;
+        maxBoundary = 100;
+    }, []);
 
     function comparisonHandler(direction) { 
         // direction => "lower" , "greater"
@@ -66,10 +72,14 @@ function GameScreen({ userNumber, onGameOver})  {
                     <InstructionText style = {styles.instructionText}>Higher or lower?</InstructionText>
                     <View style={styles.buttonsContainer}>
                         <View style = {styles.buttonContainer}>
-                            <MainButton pressHandler = {comparisonHandler.bind(this, 'lower')}>-</MainButton>
+                            <MainButton pressHandler = {comparisonHandler.bind(this, 'lower')}>
+                                <Ionicons name = "md-remove" size={15}/>
+                            </MainButton>
                         </View>
                         <View style = {styles.buttonContainer}>
-                            <MainButton pressHandler = {comparisonHandler.bind(this, 'greater')}>+</MainButton>
+                            <MainButton pressHandler = {comparisonHandler.bind(this, 'greater')}>
+                            <Ionicons name = "md-add" size={15}/>
+                            </MainButton>
                         </View>
                     </View>
                 </Card>
