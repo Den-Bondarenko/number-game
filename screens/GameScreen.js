@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import MainButton from "../components/ui/MainButton";
+import Card from "../components/ui/Card";
+import InstructionText from "../components/ui/InstructionText";
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -59,11 +61,18 @@ function GameScreen({ userNumber, onGameOver})  {
             <Title>Opponent's Guess</Title>
             <NumberContainer>{currentGuess}</NumberContainer>
             <View>
-                <Text>Higher or lower?</Text>
-                <View>
-                    <MainButton pressHandler = {comparisonHandler.bind(this, 'lower')}>-</MainButton> 
-                    <MainButton pressHandler = {comparisonHandler.bind(this, 'greater')}>+</MainButton>
-                </View>
+                
+                <Card>
+                    <InstructionText style = {styles.instructionText}>Higher or lower?</InstructionText>
+                    <View style={styles.buttonsContainer}>
+                        <View style = {styles.buttonContainer}>
+                            <MainButton pressHandler = {comparisonHandler.bind(this, 'lower')}>-</MainButton>
+                        </View>
+                        <View style = {styles.buttonContainer}>
+                            <MainButton pressHandler = {comparisonHandler.bind(this, 'greater')}>+</MainButton>
+                        </View>
+                    </View>
+                </Card>
             </View>
         </View>
     );
@@ -74,12 +83,23 @@ export default GameScreen;
 const styles = StyleSheet.create({
     gameScreen: {
         flex: 1,
-        padding: 12,
+        padding: 20,
         alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 100,
     },
 
-    title: {
-        fontSize: 18,
-    }
+    instructionText: {
+        marginBottom: 12,
+    },
+
+    buttonsContainer: {
+        width: '75%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+
+    buttonContainer: {
+        flex: 1,
+    },
 })
