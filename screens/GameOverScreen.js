@@ -8,7 +8,7 @@ function GameOverScreen({roundsNum, userNumber, onStartNewGame }) {
             <Title>Game is over!</Title>
             <Text style={styles.SummaryText}>
                 Your phone needed <Text style={styles.highlight}>{roundsNum}</Text> {''}
-                to guess the number <Text style={styles.highlight}>{userNumber}</Text>
+                rounds to guess the number <Text style={styles.highlight}>{userNumber}</Text>
             </Text>
             <MainButton pressHandler={onStartNewGame}>Start New Game</MainButton>
         </View>
