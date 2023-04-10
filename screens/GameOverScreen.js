@@ -1,10 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
 import Title from "../components/ui/Title";
 import MainButton from "../components/ui/MainButton";
 
 function GameOverScreen({roundsNum, userNumber, onStartNewGame }) {
+    const { width, height } = useWindowDimensions();
+
+    const marginTopDistance = height < 400 ? 30 : 100;
     return (
-        <View style = {styles.screen}>
+        <View style = {[styles.screen, {marginTop: marginTopDistance}]}>
             <Title>Game is over!</Title>
             <Text style={styles.SummaryText}>
                 Your phone needed <Text style={styles.highlight}>{roundsNum}</Text> {''}

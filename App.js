@@ -1,5 +1,6 @@
 import { StyleSheet, View, SafeAreaView} from 'react-native';
 import { useState} from 'react';
+import { StatusBar } from 'expo-status-bar';
 import GameStartScreen from './screens/GameStartScreen';
 import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
@@ -37,11 +38,15 @@ export default function App() {
   };
 
   return (
-    <View style = {styles.rootScreen}>
-      <SafeAreaView style = {styles.rootScreen}>
-        {activeScreen}
-      </SafeAreaView>
-    </View>
+    <>
+      <StatusBar style='light'/>
+      <View style = {styles.rootScreen}>
+        <SafeAreaView style = {styles.rootScreen}>
+          {activeScreen}
+        </SafeAreaView>
+      </View>
+    </>
+
   );
 }
 
